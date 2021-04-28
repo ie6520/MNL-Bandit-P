@@ -1,6 +1,7 @@
 
 import numpy as np
 import Optimal_Assortment
+import wx
 
 #feasure dimension
 D = 1
@@ -42,13 +43,14 @@ def getOptimalAssortment(Theta,Nx,x):
 
 def getProbability(ast,x):
     n = len(ast)
-    wx = np.array([0]*n)
+    wx = [0]*n
     for i in range(n):
-        wx[i] = np.exp(np.dot(Theta_g[ast[i]:],x))
+        wx[i] = np.exp(np.dot(Theta_g[ast[i]:],np.array(x)))
     
-    sum = np.sum(wx)+1
     wx = [1]+wx
-    wx/=sum
+    sum = np.sum(wx)
+    for i in range(len(wx)): 
+        wx[i]/=sum
     
     return wx
 
@@ -86,5 +88,11 @@ def PAO_TS(T,r):
 if __name__=='__main__':
     print('test')
 
+    a = [1,2,3]
+    
+    sum = np.sum(a)+1
+    
+    
+    print(a)
     
         
