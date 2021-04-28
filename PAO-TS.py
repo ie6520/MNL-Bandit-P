@@ -47,9 +47,10 @@ def getProbability(ast,x):
         wx[i] = np.exp(np.dot(Theta_g[ast[i]:],x))
     
     sum = np.sum(wx)+1
+    wx = [1]+wx
+    wx/=sum
     
-    prob = [wx[i]/sum for i in range(n)]
-    return prob
+    return wx
 
 def getOptimalValue(ast,x):
     prob = getProbability(ast, x)
@@ -60,7 +61,7 @@ def getOptimalValue(ast,x):
         
 def getCustomerPick(ast,x):
     prob = getProbability(ast, x)
-    draw = np.random.choice(ast,1,p=prob)
+    draw = np.random.choice([0]+ast,1,p=prob)
     return draw[0]
 
 
@@ -84,7 +85,6 @@ def PAO_TS(T,r):
         
 if __name__=='__main__':
     print('test')
-    
-    
+
     
         
