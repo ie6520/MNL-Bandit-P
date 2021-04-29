@@ -1,8 +1,11 @@
 
 import numpy as np
+from numpy.lib.function_base import place
 import Optimal_Assortment
+import matplotlib.pyplot as plt
 
-#from sample import Generate_theta
+from sample import Generate_theta
+import json
 
 #feature dimension
 D =1
@@ -77,8 +80,7 @@ def PAO_TS(T,r):
         if len(H_TS)==0:
             Theta_ts = (2*np.random.normal(0,1.0,size=(len(N),D))-np.random.uniform(size = (len(N),D)))/np.sqrt(D)
         else:
-            pass
-            #Theta_ts = Generate_theta(*zip(*H_TS),len(N))
+            Theta_ts = Generate_theta(*zip(*H_TS),len(N))
         
         opt_as_ts = getOptimalAssortment(Theta_ts, Nx, x)
         opt_as_ora = getOptimalAssortment(Theta_g, Nx, x)
@@ -91,10 +93,19 @@ def PAO_TS(T,r):
         reward_ora.append(getOptimalValue(opt_as_ora,x))
         
         H_TS.append([x,opt_as_ts,I_t])
-    print(H_TS)
-        
-if __name__=='__main__':
-    PAO_TS(5,r)
-
     
-        
+    return reward,reward_ora
+
+
+if __name__=='__main__':
+    T = 50
+    reward,reward_ora = PAO_TS(T,r)
+    x = list(range(T))
+    plt.plot(x,reward,label="reward",linestyle="-", marker="^")
+    plt.plot(x,reward_ora,label="reward_ora",linestyle="-", marker="s")
+    plt.show()
+
+    res = {"reward":reward,"reward_ora":reward_ora}
+
+    with open("test.json", 'w') as f:
+        json.dump(res, f)

@@ -29,8 +29,6 @@ def Generate_theta(x,s,I,N):
         p_list = []
         for t in range(T):
             wt = dot(theta,x[t])
-            print(s[t])
-            print(wt.shape)
             swt = s[t]*wt
             sum_sw = sum(swt)
             p = exp(swt)/(1+sum_sw)
@@ -41,7 +39,7 @@ def Generate_theta(x,s,I,N):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(2000,step=step)
+        trace1 = pm.sample(20,n_init=100,step=step)
 
     return trace1["theta"][-1]
 '''
