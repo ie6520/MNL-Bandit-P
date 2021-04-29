@@ -2,6 +2,8 @@
 import numpy as np
 import Optimal_Assortment
 
+from sample import Generate_theta
+
 #feasure dimension
 D = 1
 #item set
@@ -73,7 +75,7 @@ def PAO_TS(T,r):
     for t in range(1,T+1):
         x = Receive_x()
         Nx = Prod(x)
-        Theta_ts = Generate_theta(Nx)
+        Theta_ts = Generate_theta(*zip(*H_ts),len(N))
         
         opt_as_ts = getOptimalAssortment(Theta_ts, Nx, x)
         opt_as_ora = getOptimalAssortment(Theta_g, Nx, x)
