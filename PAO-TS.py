@@ -7,15 +7,15 @@ from sample import Generate_theta
 #feasure dimension
 D = 1
 #item set
-N = []
+N = [1,2,3,4,5]
 #cardinality constraint
 B = 6
 
+r = [5,4,3,2,1]
 #2d-array
 Theta_g=[[]]
 
-#history trajectory
-H_TS=[]
+
 
 def Receive_x():
     x = 1
@@ -23,7 +23,7 @@ def Receive_x():
 
 def Prod(x):
     N_x = []
-    return N_x
+    return N
 
 def getOptimalAssortment(Theta,Nx,x):
     nx = len(Nx)
@@ -66,12 +66,15 @@ def getCustomerPick(ast,x):
 
 
 def PAO_TS(T,r):
-    global H_TS
-    
+    #history trajectory
+    H_TS=[]
     for t in range(1,T+1):
         x = Receive_x()
         Nx = Prod(x)
-        Theta_ts = Generate_theta(*zip(*H_ts),len(N))
+        if len(H_TS)==0:
+            Theta_ts = np.random.normal(0,1,size=(len(N),D))
+        else:
+            Theta_ts = Generate_theta(*zip(*H_TS),len(N))
         
         opt_as_ts = getOptimalAssortment(Theta_ts, Nx, x)
         opt_as_ora = getOptimalAssortment(Theta_g, Nx, x)
