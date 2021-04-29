@@ -15,7 +15,7 @@ def getOptimalAssortment(n,w,r,B,log = True):
     p.variables.add(obj = obj,names = ['x'+str(i) for i in range(n+1)])
     rows = []
     rowP = [1 for i in range(n+1)]
-    rowC = [-B]+[1.0/v[i] for i in range(n)]
+    rowC = [-B]+[1.0/w[i] for i in range(n)]
     va = [i for i in range(n+1)]
     rows = [[va,rowP],[va,rowC]]
     for i in range(1,n+1):
@@ -44,9 +44,7 @@ def getOptimalAssortment(n,w,r,B,log = True):
     
 
 if __name__=='__main__':
-    n = 5
-    v = [1/i for i in range(1,n+1)]
-    r = [i+10 for i in range(1,n+1)]
+
     
     
     

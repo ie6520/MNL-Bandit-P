@@ -37,7 +37,6 @@ def Generate_theta(x,s,I,N):
             p0 = 1/(1+sum_sw)
             p_list.append(concatenate(([p0],p)))
 
-
         I_obs = pm.Categorical("I_obs", p=stack(p_list,axis=0), observed=I)
 
     with model:
@@ -55,3 +54,4 @@ H_ts = [[(1,1),(1,2,3),1],
         [(2,2),(1,2,3),1]]
 trace = Generate_theta(*zip(*H_ts),N)
 '''
+

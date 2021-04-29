@@ -4,7 +4,7 @@ import Optimal_Assortment
 
 from sample import Generate_theta
 
-#feasure dimension
+#feature dimension
 D = 1
 #item set
 N = [1,2,3,4,5]
@@ -13,7 +13,7 @@ B = 6
 
 r = [5,4,3,2,1]
 #2d-array
-Theta_g=np.random.normal(0,1,size=(len(N),D))
+Theta_g=(2*np.random.normal(0,1.0,size=(len(N),D))-np.random.uniform())/np.sqrt(D)
 
 
 
@@ -22,7 +22,7 @@ def Receive_x():
 
 def Prod(x):
     N_x = []
-    return N
+    return N_x
 
 def getOptimalAssortment(Theta,Nx,x):
     nx = len(Nx)
@@ -30,7 +30,7 @@ def getOptimalAssortment(Theta,Nx,x):
     rx = [0]*nx
     for i in range(nx):
         wx[i] = np.exp(np.dot(Theta[Nx[i]:],x))
-        rx[i] = r[Nx[i]]
+        rx[i] = r[Nx[i]-1]
     opt_as = Optimal_Assortment.getOptimalAssortment(n = nx, w = wx, r = rx, B=B, log = True)
     for i in range(nx):
         opt_as[i] = Nx[opt_as[i]]
@@ -67,11 +67,13 @@ def getCustomerPick(ast,x):
 def PAO_TS(T,r):
     #history trajectory
     H_TS=[]
+    reward = []
+    reward_ora = []
     for t in range(1,T+1):
         x = Receive_x()
         Nx = Prod(x)
         if len(H_TS)==0:
-            Theta_ts = np.random.normal(0,1,size=(len(N),D))
+            Theta_ts = (2*np.random.normal(0,1.0,size=(len(N),D))-np.random.uniform())/np.sqrt(D)
         else:
             Theta_ts = Generate_theta(*zip(*H_TS),len(N))
         
@@ -82,16 +84,12 @@ def PAO_TS(T,r):
         
         I_t = getCustomerPick(opt_as_ts,x)
         
+        reward.append(getOptimalValue(opt_as_ts, x))
+        reward_ora.append(getOptimalValue(opt_as_ora,x))
+        
         H_TS.append([x,opt_as_ts,I_t])
         
 if __name__=='__main__':
-    print('test')
 
-    a = [1,2,3]
-    
-    sum = np.sum(a)+1
-    
-    
-    print(a)
     
         
