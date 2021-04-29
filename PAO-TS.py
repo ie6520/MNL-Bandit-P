@@ -13,13 +13,12 @@ B = 6
 
 r = [5,4,3,2,1]
 #2d-array
-Theta_g=[[]]
+Theta_g=np.random.normal(0,1,size=(len(N),D))
 
 
 
 def Receive_x():
-    x = 1
-    return x
+    return np.random.rand(D)
 
 def Prod(x):
     N_x = []
