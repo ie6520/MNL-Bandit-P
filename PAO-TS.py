@@ -1,7 +1,6 @@
 
 import numpy as np
 import Optimal_Assortment
-import wx
 
 #feasure dimension
 D = 1
@@ -20,7 +19,7 @@ def Receive_x():
     x = 1
     return x
 
-def Generate_Theta(Nx):
+def Generate_Theta(H):
     theta = 1
     return theta
 
