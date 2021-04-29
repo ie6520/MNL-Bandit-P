@@ -22,7 +22,7 @@ def Receive_x():
 
 def Prod(x):
     N_x = []
-    return N_x
+    return N
 
 def getOptimalAssortment(Theta,Nx,x):
     nx = len(Nx)
@@ -32,6 +32,7 @@ def getOptimalAssortment(Theta,Nx,x):
         wx[i] = np.exp(np.dot(Theta[Nx[i]:],x))
         rx[i] = r[Nx[i]-1]
     opt_as = Optimal_Assortment.getOptimalAssortment(n = nx, w = wx, r = rx, B=B, log = True)
+    print(opt_as)
     for i in range(nx):
         opt_as[i] = Nx[opt_as[i]]
         
@@ -79,7 +80,7 @@ def PAO_TS(T,r):
         
         opt_as_ts = getOptimalAssortment(Theta_ts, Nx, x)
         opt_as_ora = getOptimalAssortment(Theta_g, Nx, x)
-        
+        print(opt_as_ts)
         getOptimalValue(opt_as_ora, x)
         
         I_t = getCustomerPick(opt_as_ts,x)
@@ -92,4 +93,4 @@ def PAO_TS(T,r):
 if __name__=='__main__':
 
     
-        
+        PAO_TS(10,r)
