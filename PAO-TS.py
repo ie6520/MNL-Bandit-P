@@ -21,23 +21,19 @@ def Receive_x():
     x = 1
     return x
 
-def Generate_Theta(H):
-    theta = 1
-    return theta
-
 def Prod(x):
     N_x = []
     return N_x
 
 def getOptimalAssortment(Theta,Nx,x):
     nx = len(Nx)
-    wx = [0]*n
-    rx = [0]*n
-    for i in range(n):
-        wx[i] = np.exp(np.dot(Theta_ts[Nx[i]:],x))
+    wx = [0]*nx
+    rx = [0]*nx
+    for i in range(nx):
+        wx[i] = np.exp(np.dot(Theta[Nx[i]:],x))
         rx[i] = r[Nx[i]]
     opt_as = Optimal_Assortment.getOptimalAssortment(n = nx, w = wx, r = rx, B=B, log = True)
-    for i in range(n):
+    for i in range(nx):
         opt_as[i] = Nx[opt_as[i]]
         
     return opt_as
@@ -58,8 +54,8 @@ def getProbability(ast,x):
 def getOptimalValue(ast,x):
     prob = getProbability(ast, x)
     sum = 0
-    for i in range(len(ast)):
-        sum+=r[ast[i]]*prob[i]
+    for i in range(1,len(ast)):
+        sum+=r[ast[i-1]]*prob[i]
     return sum
         
 def getCustomerPick(ast,x):
