@@ -83,13 +83,13 @@ def getCustomerPick(ast,x):
 
 
 
-def PAO_TS_P(T,r,customer_list):
+def PAO_TS_P(T,r):
     #history trajectory
     H_TS=[]
     reward = []
     reward_ora = []
     for t in range(1,T+1):
-        x = customer_list[t-1]
+        x = Receive_x()
         Nx = Prod(x)
         if len(H_TS)==0:
             Theta_ts = np.random.normal(0,1.0,size=(D,K))
@@ -114,7 +114,7 @@ def PAO_TS_P(T,r,customer_list):
 
 if __name__=='__main__':
     T = 300
-    reward,reward_ora = PAO_TS_P(T,r,[Receive_x() for i in range(T)])
+    reward,reward_ora = PAO_TS_P(T,r)
     regret = [reward_ora[i]-reward[i] for i in range(T)]
     x = list(range(T))
     plt.plot(x,reward,label="reward",linestyle="-", marker="^")

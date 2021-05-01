@@ -13,8 +13,8 @@ def one_hot(s,N):
         one_hot_s[ss-1]=1
     return one_hot_s
 
-def Generate_theta(x,s,I,N):
-    print(x,s,I,N)
+def Generate_theta(x,s,I,N,K=1):
+    #print(x,s,I,N)
     T = len(x)
     D = len(x[0])
     s = [one_hot(ss,N) for ss in s]
@@ -25,7 +25,9 @@ def Generate_theta(x,s,I,N):
     model = pm.Model()
     with model:
         # Priors for unknown model parameters
+
         theta = pm.Normal("theta",mu=0,sigma=1,shape=(N,D))
+
         p_list = []
         for t in range(T):
             wt = dot(theta,x[t])
@@ -39,12 +41,12 @@ def Generate_theta(x,s,I,N):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(20,n_init=100,step=step)
+        trace1 = pm.sample(1000,chains=1,step=step)
 
     return trace1["theta"][-1]
 
 def Generate_theta_p(x,s,I,N,K,prod_f):
-    print(x,s,I,N,len(x))
+    #print(x,s,I,N,len(x))
     T = len(x)
     D = len(x[0])
     s = [one_hot(ss,N) for ss in s]
@@ -55,7 +57,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
     model = pm.Model()
     with model:
         # Priors for unknown model parameters
-        theta = pm.Normal("theta",mu=0,sigma=1,shape=(D,K))
+        theta = pm.Normal("theta",mu=0,sigma=1,shape=(D,K))/np.sqrt(K)
         p_list = []
         for t in range(T):
             #print(prod_f)
@@ -71,7 +73,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(20,n_init=100,step=step)
+        trace1 = pm.sample(1000,chains=1,step=step)
 
     return trace1["theta"][-1]
 '''
