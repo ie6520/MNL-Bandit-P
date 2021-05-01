@@ -11,7 +11,7 @@ load docker
 
 run docker 
 ```sh
-docker run -itd -v "Path-to-RM:/root/RM"  -p "2222:22" --name test1 myubuntu:1 /bin/bash -c "/etc/rc.d/rc.local;service ssh restart;/bin/bash"
+docker run -itd -v "Absolute-Path-to-RM:/root/RM"  -p "2222:22" --name test1 myubuntu:1 /bin/bash -c "/etc/rc.d/rc.local;service ssh restart;/bin/bash"
 ```
 
 ssh connect
