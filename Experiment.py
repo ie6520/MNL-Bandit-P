@@ -10,18 +10,18 @@ import json
 
 
 #feature dimension
-D = 5
-K = 1
+D = 3
+K = 4
 #item set
 N = [i+1 for i in range(100)]
 #cardinality constraint
 B = 10
 
-r = np.random.uniform(0,100,size = len(N))
+r = [200-i for i in range(len(N))]
 #2d-array
 Theta_g_p=(2*np.random.normal(0,1.0,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
-prod_f = np.random.uniform(1,1,size = (len(N),K))
+prod_f = np.random.uniform(0.5,1,size = (len(N),K))
 print(prod_f)
 
 def getInferredTheta(Theta_p):
@@ -117,7 +117,7 @@ def PAO_TS_exp(T,r):
         H_TS_p.append([x,opt_as_ts_p,I_t_p])
 
         print(sum(reward_np)-sum(reward_ora),sum(reward_p)-sum(reward_ora))
-        print(opt_as_ora)
+        print(opt_as_ora,opt_as_ts_p,opt_as_ts_np)
     
     return reward_np,reward_p,reward_ora
 

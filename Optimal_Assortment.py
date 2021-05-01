@@ -2,6 +2,7 @@ import cplex
 import numpy as np
 
 def getOptimalAssortment(n,w,r,B,log = True):
+    #print(w)
     
     p = cplex.Cplex()
     if not log:
