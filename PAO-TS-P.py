@@ -9,6 +9,7 @@ import json
 
 #feature dimension
 D = 2
+L = 3
 #item set
 N = [1,2,3,4,5]
 #cardinality constraint
@@ -16,9 +17,19 @@ B = 6
 
 r = [5,4,3,2,1]
 #2d-array
-Theta_g=(2*np.random.normal(0,1.0,size=(len(N),D))-np.random.uniform(size = (len(N),D)))/np.sqrt(D)
+Theta=(2*np.random.normal(0,1.0,size=(D,L))-np.random.uniform(size = (D,L)))/np.sqrt(D)
+
+p = np.random.normal(0,1.0,size = (len(N),D))
+b = np.random.normal(0,1.0,size = len(N))
 
 
+
+print(p)
+print(b)
+
+print(Theta)
+print(p[0])
+print(np.matmul(Theta,p[0]))
 
 def Receive_x():
     return np.random.rand(D)
@@ -78,7 +89,7 @@ def PAO_TS(T,r):
         x = Receive_x()
         Nx = Prod(x)
         if len(H_TS)==0:
-            Theta_ts = np.random.normal(0,1.0,size=(len(N),D))
+            Theta_ts = (2*np.random.normal(0,1.0,size=(len(N),D))-np.random.uniform(size = (len(N),D)))/np.sqrt(D)
         else:
             Theta_ts = Generate_theta(*zip(*H_TS),len(N))
         
@@ -99,7 +110,7 @@ def PAO_TS(T,r):
 
 if __name__=='__main__':
     T = 50
-    reward,reward_ora = PAO_TS(T,r)
+    #reward,reward_ora = PAO_TS(T,r)
     x = list(range(T))
     plt.plot(x,reward,label="reward",linestyle="-", marker="^")
     plt.plot(x,reward_ora,label="reward_ora",linestyle="-", marker="s")
