@@ -10,14 +10,14 @@ from sample import Generate_theta_p
 import json
 
 #feature dimension
-D = 2
-L = 3
+D = 5
+L = 10
 #item set
-N = [1,2,3,4,5,6,7,8]
+N = [i+1 for i in range(100)]
 #cardinality constraint
-B = 5
+B = 20
 
-r = [8,7,6,5,4,3,2,1]
+r = np.random.uniform(size = len(N))
 #2d-array
 Theta_g=(2*np.random.normal(0,1.0,size=(D,L))-np.random.uniform(size = (D,L)))/np.sqrt(D)
 b_g = np.random.normal(0,1.0,size = len(N))
@@ -72,8 +72,8 @@ def getProbability(ast,x):
 def getOptimalValue(ast,x):
     prob = getProbability(ast, x)
     sum = 0
-    for i in range(1,len(prob)):
-        sum+=r[ast[i-1]-1]*prob[i]
+    for i in range(len(ast)):
+        sum+=r[ast[i]-1]*prob[i+1]
     return sum
         
 def getCustomerPick(ast,x):
@@ -113,14 +113,15 @@ def PAO_TS_P(T,r):
 
 
 if __name__=='__main__':
-    T = 50
+    T = 300
     reward,reward_ora = PAO_TS_P(T,r)
+    regret = [reward_ora[i]-reward[i] for i in range(T)]
     x = list(range(T))
     plt.plot(x,reward,label="reward",linestyle="-", marker="^")
     plt.plot(x,reward_ora,label="reward_ora",linestyle="-", marker="s")
     plt.show()
 
-    res = {"reward":reward,"reward_ora":reward_ora}
+    res = {"reward":reward,"reward_ora":reward_ora,"regret":regret}
 
     with open("test.json", 'w') as f:
         json.dump(res, f)

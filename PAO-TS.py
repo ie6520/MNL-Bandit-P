@@ -58,8 +58,8 @@ def getProbability(ast,x):
 def getOptimalValue(ast,x):
     prob = getProbability(ast, x)
     sum = 0
-    for i in range(1,len(prob)):
-        sum+=r[ast[i-1]-1]*prob[i]
+    for i in range(len(ast)):
+        sum+=r[ast[i]-1]*prob[i+1]
     return sum
         
 def getCustomerPick(ast,x):
