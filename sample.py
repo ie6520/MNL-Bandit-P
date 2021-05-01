@@ -14,7 +14,7 @@ def one_hot(s,N):
     return one_hot_s
 
 def Generate_theta(x,s,I,N,K=1):
-    #print(x,s,I,N)
+    #print(s,N)
     T = len(x)
     D = len(x[0])
     s = [one_hot(ss,N) for ss in s]
@@ -41,12 +41,12 @@ def Generate_theta(x,s,I,N,K=1):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(1000,chains=1,step=step)
+        trace1 = pm.sample(1,chains=1,step=step)
 
     return trace1["theta"][-1]
 
 def Generate_theta_p(x,s,I,N,K,prod_f):
-    #print(x,s,I,N,len(x))
+    #print(s,N,len(x))
     T = len(x)
     D = len(x[0])
     s = [one_hot(ss,N) for ss in s]
@@ -73,7 +73,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(1000,chains=1,step=step)
+        trace1 = pm.sample(1,chains=1,step=step)
 
     return trace1["theta"][-1]
 '''

@@ -15,13 +15,14 @@ K = 1
 #item set
 N = [i+1 for i in range(100)]
 #cardinality constraint
-B = 100
+B = 10
 
 r = np.random.uniform(0,100,size = len(N))
 #2d-array
-Theta_g_p=(2*np.random.normal(0,1.0,size=(D,K)))/np.sqrt(D*K)
+Theta_g_p=(2*np.random.normal(0,1.0,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
 prod_f = np.random.uniform(1,1,size = (len(N),K))
+print(prod_f)
 
 def getInferredTheta(Theta_p):
     return np.matmul(prod_f,np.transpose(Theta_p))
@@ -29,6 +30,7 @@ def getInferredTheta(Theta_p):
 #Theta_g_np=np.matmul(prod_f,np.transpose(Theta_p_g)) 
 Theta_g_np=getInferredTheta(Theta_g_p)
 
+print(Theta_g_np)
 
 def Receive_x():
     return np.random.rand(D)
@@ -115,9 +117,9 @@ def PAO_TS_exp(T,r):
         H_TS_p.append([x,opt_as_ts_p,I_t_p])
 
         print(sum(reward_np)-sum(reward_ora),sum(reward_p)-sum(reward_ora))
+        print(opt_as_ora)
     
     return reward_np,reward_p,reward_ora
-
 
 
 T = 50
