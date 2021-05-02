@@ -13,7 +13,7 @@ def getOptimalAssortment(n,w,r,B,log = True):
         
     obj = [0]+r
     p.objective.set_sense(p.objective.sense.maximize)
-    p.variables.add(obj = obj,names = ['x'+str(i) for i in range(n+1)],lb = [0]*n+1)
+    p.variables.add(obj = obj,names = ['x'+str(i) for i in range(n+1)],lb = [0]*(n+1))
     rows = []
     rowP = [1 for i in range(n+1)]
     rowC = [-B]+[1.0/w[i] for i in range(n)]
