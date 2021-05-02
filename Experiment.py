@@ -13,7 +13,7 @@ import json
 D = 3
 K = 4
 #item set
-N = [i+1 for i in range(50)]
+N = [i+1 for i in range(100)]
 #cardinality constraint
 B = 10
 
@@ -126,7 +126,7 @@ def PAO_TS_exp(T,r):
     return reward_np,reward_p,reward_ora
 
 
-T = 100
+T = 200
 reward_np,reward_p,reward_ora = PAO_TS_exp(T,r)
 
 res = {"reward_np":reward_np,"reward_p":reward_p,"reward_ora":reward_ora}
