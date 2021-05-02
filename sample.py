@@ -73,7 +73,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(tune = 4000,chains=1,step=step)
+        trace1 = pm.sample(tune = 6000,chains=1,step=step)
 
     return trace1["theta"][-1]
 '''

@@ -13,13 +13,16 @@ import json
 D = 3
 K = 4
 #item set
-N = [i+1 for i in range(100)]
+N = [i+1 for i in range(10)]
 #cardinality constraint
 B = 10
 
-r = [200-i for i in range(len(N))]
+r =np.random.uniform(0,10,size = len(N))
+r.sort()
+print(r)
+
 #2d-array
-Theta_g_p=(2*np.random.normal(0,1.0,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
+Theta_g_p=(2*np.random.normal(0,100,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
 prod_f = np.random.uniform(0.5,1,size = (len(N),K))
 print(prod_f)

@@ -75,7 +75,7 @@ def PAO_TS(T,r):
     reward = []
     reward_ora = []
     for t in range(1,T+1):
-        x = Receive_x)()
+        x = Receive_x()
         Nx = Prod(x)
         if len(H_TS)==0:
             Theta_ts = np.random.normal(0,1.0,size=(len(N),D))
