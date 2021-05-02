@@ -13,15 +13,13 @@ import json
 D = 5
 K = 6
 #item set
-N = [i+1 for i in range(100)]
+N = [i+1 for i in range(50)]
 #cardinality constraint
-B = 10
+B = 5
 
 r =np.random.uniform(0,10,size = len(N))
 r.sort()
 print(r)
-
-#hi zhudan
 
 #2d-array
 Theta_g_p=(2*np.random.normal(0,1,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
@@ -128,7 +126,7 @@ def PAO_TS_exp(T,r):
     return reward_np,reward_p,reward_ora
 
 
-T = 200
+T = 100
 reward_np,reward_p,reward_ora = PAO_TS_exp(T,r)
 
 res = {"reward_np":reward_np,"reward_p":reward_p,"reward_ora":reward_ora}
