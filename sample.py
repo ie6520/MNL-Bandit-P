@@ -26,7 +26,7 @@ def Generate_theta(x,s,I,N,K=1):
     with model:
         # Priors for unknown model parameters
 
-        theta = pm.Normal("theta",mu=0,sigma=1,shape=(N,D))
+        theta = pm.Normal("theta",mu=0,sigma=1,shape=(N,D))/np.sqrt(D)
 
         p_list = []
         for t in range(T):
@@ -41,7 +41,7 @@ def Generate_theta(x,s,I,N,K=1):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(tune = 4000,chains=1,step=step)
+        trace1 = pm.sample(tune = 2000,chains=1,step=step)
 
     return trace1["theta"][-1]
 
@@ -57,7 +57,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
     model = pm.Model()
     with model:
         # Priors for unknown model parameters
-        theta = pm.Normal("theta",mu=0,sigma=1,shape=(D,K))/np.sqrt(K)
+        theta = pm.Normal("theta",mu=0,sigma=1,shape=(D,K))/np.sqrt(K*D)
         p_list = []
         for t in range(T):
             #print(prod_f)
@@ -73,7 +73,7 @@ def Generate_theta_p(x,s,I,N,K,prod_f):
 
     with model:
         step = pm.Metropolis()
-        trace1 = pm.sample(tune = 6000,chains=1,step=step)
+        trace1 = pm.sample(tune = 2000,chains=1,step=step)
 
     return trace1["theta"][-1]
 '''

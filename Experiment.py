@@ -13,7 +13,7 @@ import json
 D = 3
 K = 4
 #item set
-N = [i+1 for i in range(10)]
+N = [i+1 for i in range(50)]
 #cardinality constraint
 B = 10
 
@@ -22,7 +22,7 @@ r.sort()
 print(r)
 
 #2d-array
-Theta_g_p=(2*np.random.normal(0,100,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
+Theta_g_p=(2*np.random.normal(0,1,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
 prod_f = np.random.uniform(0.5,1,size = (len(N),K))
 print(prod_f)
@@ -36,7 +36,7 @@ Theta_g_np=getInferredTheta(Theta_g_p)
 print(Theta_g_np)
 
 def Receive_x():
-    return np.random.rand(D)
+    return np.random.normal(0,1,size=(D,))
 
 def Prod(x):
     N_x = []
@@ -119,16 +119,17 @@ def PAO_TS_exp(T,r):
         H_TS_np.append([x,opt_as_ts_np,I_t_np])
         H_TS_p.append([x,opt_as_ts_p,I_t_p])
 
+        print(np.max(np.abs(Theta_ts_np-Theta_g_np).flatten()),np.max(np.abs(getInferredTheta(Theta_ts_p)-Theta_g_np).flatten()))
         print(sum(reward_np)-sum(reward_ora),sum(reward_p)-sum(reward_ora))
         print(opt_as_ora,opt_as_ts_p,opt_as_ts_np)
     
     return reward_np,reward_p,reward_ora
 
 
-T = 50
-PAO_TS_exp(T,r)
+T = 100
+reward_np,reward_p,reward_ora = PAO_TS_exp(T,r)
 
-res = {"reward1":re1,"reward_ora1":reo1,"reward2":re2,"reward_ora2":reo2}
+res = {"reward_np":reward_np,"reward_p":reward_p,"reward_ora":reward_ora}
 
 with open("test.json", 'w') as f:
     json.dump(res, f)

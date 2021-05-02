@@ -41,6 +41,7 @@ def getOptimalAssortment(n,w,r,B,log = True):
     x = []
     for i in range(1,n+1):
         if re[i]>1e-5: x.append(i-1)
+    #print(re,w,"!")
     return x
     
 
