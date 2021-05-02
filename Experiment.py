@@ -21,6 +21,7 @@ r =np.random.uniform(0,10,size = len(N))
 r.sort()
 print(r)
 
+
 #2d-array
 Theta_g_p=(2*np.random.normal(0,1,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
