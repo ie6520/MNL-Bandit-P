@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 #     reward_ora = data["reward_ora"]
 
 def gen_figure(reward_np,reward_p,reward_ora):
+    plt.clf()
     t = len(reward_p)
     x = list(range(t))
 

@@ -11,12 +11,12 @@ import json
 import os
 
 
-def run(D=5, K=6, B=5, debug=False):
+def run(D=5, K=6, B=5, NN=50, debug=False):
     # feature dimension
     # D = 5
     # K = 6
     # item set
-    N = [i+1 for i in range(50)]
+    N = [i+1 for i in range(NN)]
     # cardinality constraint
     # B = 5
     if not debug:
@@ -138,19 +138,19 @@ def run(D=5, K=6, B=5, debug=False):
 
     res = {"reward_np": reward_np, "reward_p": reward_p, "reward_ora": reward_ora}
 
-
     folder = "./data"
     if not os.path.exists(folder):
         os.makedirs(folder)
-    filename = "%d_%d_%d.json"%(D,K,B)
-    
-    out_file = os.path.join(folder,filename)
+
+    filename = "%d_%d_%d_%d.json" % (D, K, B, NN)
+
+    out_file = os.path.join(folder, filename)
     with open(out_file, 'w') as f:
         json.dump(res, f)
-    
-    plt = gen_figure(reward_np,reward_p,reward_ora)
-    figurename = "%d_%d_%d.png"%(D,K,B)
-    out_figure = os.path.join(folder,figurename)
-    plt.title('D=%d,K=%d,B=%d'%(D,K,B))
+
+    plt = gen_figure(reward_np, reward_p, reward_ora)
+    figurename = "%d_%d_%d_%d.png" % (D, K, B, NN)
+    out_figure = os.path.join(folder, figurename)
+    plt.title('D=%d,K=%d,B=%d,N=%d' % (D, K, B, NN))
     plt.savefig(out_figure)
-    return reward_np,reward_p,reward_ora
+    return reward_np, reward_p, reward_ora
