@@ -133,7 +133,7 @@ def run(D=5, K=6, B=5, debug=False):
 
         return reward_np, reward_p, reward_ora
 
-    T = 10
+    T = 100
     reward_np, reward_p, reward_ora = PAO_TS_exp(T, r)
 
     res = {"reward_np": reward_np, "reward_p": reward_p, "reward_ora": reward_ora}
