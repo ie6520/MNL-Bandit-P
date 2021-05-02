@@ -2,6 +2,7 @@ import cplex
 import numpy as np
 
 def getOptimalAssortment(n,w,r,B,log = True):
+    #print(w)
     
     p = cplex.Cplex()
     if not log:
@@ -12,7 +13,7 @@ def getOptimalAssortment(n,w,r,B,log = True):
         
     obj = [0]+r
     p.objective.set_sense(p.objective.sense.maximize)
-    p.variables.add(obj = obj,names = ['x'+str(i) for i in range(n+1)])
+    p.variables.add(obj = obj,names = ['x'+str(i) for i in range(n+1)],lb = [0]*(n+1))
     rows = []
     rowP = [1 for i in range(n+1)]
     rowC = [-B]+[1.0/w[i] for i in range(n)]
@@ -39,7 +40,8 @@ def getOptimalAssortment(n,w,r,B,log = True):
     
     x = []
     for i in range(1,n+1):
-        if re[i]>0: x.append(i-1)
+        if re[i]>1e-5: x.append(i-1)
+    #print(re,w,"!")
     return x
     
 
