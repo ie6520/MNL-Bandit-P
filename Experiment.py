@@ -10,8 +10,8 @@ import json
 
 
 #feature dimension
-D = 3
-K = 4
+D = 5
+K = 6
 #item set
 N = [i+1 for i in range(100)]
 #cardinality constraint
