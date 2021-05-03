@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math as mt
+import time
+
+import json
 
 # MNL model
 def MNL(z, S):
@@ -28,9 +31,11 @@ def assortment_provider(z):
     return np.array([N_sorted[m] for m in range(i-1)])
 
 # Environment setup
-#np.random.seed(100)
-productcount = 60
-productfeaturecount = 20
+
+start_time = time.time()
+
+productcount = 80
+productfeaturecount = 10
 product_selected = ''
 assortment_offered = ''
 T = 200
@@ -48,11 +53,6 @@ N_sorted = np.argsort(r)
 N_sorted = N_sorted[::-1]
 
 # Initialize the product feature matrix
-#X = np.zeros((productcount,productfeaturecount))
-#for i in range(X.shape[0]):
-#    for j in range(X.shape[1]):
-        #X[i,j] = np.random.randint(0,2)
-        #X[i,j] = np.random.random()
 X = (2*np.random.normal(0,1.0,size=(productcount,productfeaturecount))+2*np.random.uniform(size=(productcount,productfeaturecount)))/np.sqrt(productfeaturecount)
 #X = np.random.uniform(0.5,1,size=(productcount,productfeaturecount))
 
@@ -114,7 +114,7 @@ for t in range(T):
                 revenue_per_round[t] = r[product_t]
                 break
 
-    # optimal assortment
+    # optimal assortment for oracle
     total = 0
     cumu = []
     St_optimal = assortment_provider(true_beta)
@@ -133,30 +133,10 @@ for t in range(T):
                 revenue_per_round_optimal[t] = r[product_t_optimal]
                 break
 
-    R += revenue_per_round[t]
-    total_revenue[t] = R
-    R_optimal += revenue_per_round_optimal[t]
-    total_revenue_optimal[t] = R_optimal
-    regret = total_revenue_optimal - total_revenue
+end_time = time.time()
+print("The time is:", end_time-start_time)
 
-    # some printing
-    print('********************************************')
-    print('t = ', t)
-    print("Assortment provided by algorithm: ", St)
-    print("product chosen: ", product_t)
-    print("Assortment provided by optimal policy: ", St_optimal)
-    print("product chosen: ", product_t_optimal)
-    print("beta: ", beta)
-    #print(X[9])
-    #print(r[9]*MNL(beta,N)[St.index(9)], r[19]*MNL(beta,N)[20])
-    #print(r[9]*MNL(true_beta, N)[10], r[19]*MNL(true_beta, N)[20])
-# plot revenue Rt vs time t
-t = [i for i in range(T)]
-#plt.plot(t, total_revenue, label = 'algorithm')
-#plt.plot(t, total_revenue_optimal, label = 'Optimal')
-print("true_beta: ", true_beta)
-percentage = total_revenue[-1]/total_revenue_optimal[-1]
-print("{:.0%}". format(percentage))
-plt.plot(t, regret, label = 'Regret')
-plt.legend()
-plt.show()
+res_algo = {"reward_p_algo":revenue_per_round,"reward_ora_algo":revenue_per_round_optimal}
+
+with open("test1.json", 'w') as f:
+    json.dump(res_algo, f)

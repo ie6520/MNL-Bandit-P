@@ -10,18 +10,19 @@ import json
 
 
 #feature dimension
-D = 5
-K = 6
+D = 1
+K = 20
 #item set
-N = [i+1 for i in range(50)]
+N = [i+1 for i in range(20)]
 #cardinality constraint
-B = 5
+B = 100
 
-r =np.random.uniform(0,10,size = len(N))
+r =np.random.uniform(0,1,size = len(N))
 r.sort()
 print(r)
 
 #2d-array
+# roduct feature weight for oracle considering product feature and customer feature
 Theta_g_p=(2*np.random.normal(0,1,size=(D,K))-np.random.uniform(0,1,size=(D,K)))/np.sqrt(D*K)
 
 prod_f = np.random.uniform(0.5,1,size = (len(N),K))
@@ -54,7 +55,7 @@ def getOptimalAssortment(Theta,Nx,x):
     opt_as = Optimal_Assortment.getOptimalAssortment(n = nx, w = wx, r = rx, B=B, log = False)
     for i in range(len(opt_as)):
         opt_as[i] = Nx[opt_as[i]]
-
+        
     return opt_as
 
 def getProbability(Theta,ast,x):
@@ -126,7 +127,7 @@ def PAO_TS_exp(T,r):
     return reward_np,reward_p,reward_ora
 
 
-T = 100
+T = 200
 reward_np,reward_p,reward_ora = PAO_TS_exp(T,r)
 
 res = {"reward_np":reward_np,"reward_p":reward_p,"reward_ora":reward_ora}
